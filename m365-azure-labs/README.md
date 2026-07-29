@@ -1,27 +1,23 @@
-Lab 01: Conditional Access - Require MFA for All Users
-Objective
+# M365 & Azure Administration Labs
 
-Deploy a Conditional Access policy enforcing MFA across all users in a sandboxed Microsoft 365 E3 tenant, following a safe test-before-enforce workflow. Supports M365/Azure Administrator cert prep and AZ-104 study.
+Built in a sandboxed Microsoft 365 E3 trial tenant (`duganlab.onmicrosoft.com`)
+to develop hands-on Entra ID / M365 admin experience beyond what's safely
+testable in a live production environment.
 
-What I Built
-Created CA001 - Require MFA for All Users targeting all users (admin account excluded to prevent lockout during testing) and all cloud apps
-Deployed initially in Report-only mode to validate impact before enforcing
-Created a test user (christiantest@duganlab.onmicrosoft.com) to generate sign-in events for validation
-Troubleshooting
+## Labs
 
-Policy showed "Not applied" on all sign-in events despite being correctly configured. Root cause turned out to be a Security Defaults conflict: Security Defaults and custom Conditional Access policies cannot run together, so the tenant wasn't evaluating CA001 at all.
+| # | Lab | Status | Summary |
+|---|-----|--------|---------|
+| 01 | [Conditional Access - Require MFA](./01-conditional-access-mfa/README.md) | Complete | Deployed and validated a CA policy enforcing MFA for all users |
+| 02 | [Dynamic Security Groups](./02-dynamic-security-groups/README.md) | Complete | Built a Dynamic User group with department-based membership rule |
 
-Disabling Security Defaults triggered Entra to auto-generate four Microsoft-managed baseline CA policies as a replacement (Block legacy authentication, MFA for Azure Management, MFA for admins, MFA for all users) — a newer platform behavior rather than something manually configured.
+More labs will be added here as they're completed (legacy auth blocking,
+Intune compliance, Azure infrastructure).
 
-After disabling Security Defaults and allowing time for propagation, validated CA001 was being evaluated and returning Success by checking the Conditional Access tab on individual sign-in log entries (not just the summary column, which can lag).
-
-Validation
-Confirmed via Entra admin center → Monitoring & health → Sign-in events → clicked into a specific christiantest sign-in → Conditional Access tab → CA001 listed with result: Success
-Flipped policy from Report-only to On (enforced) after validation
-Screenshots
-
-(add screenshots here, e.g. policy config, sign-in log detail pane) Show Image Show Image
-
-Key Takeaway
-
-Report-only mode plus sign-in log validation is the safe way to test Conditional Access policies before enforcing, preventing accidental lockouts in production. Also confirmed that a policy "existing" and a policy "evaluating" are two different things worth checking separately, especially in a tenant where Security Defaults may still be active.
+## Environment Setup Notes
+- Tenant: Microsoft 365 E3 trial (30-day, recurring billing disabled)
+- 10 test users created via CSV bulk import across 4 departments
+  (Sales, IT, Finance, Marketing) to support group/policy testing
+- Security Defaults disabled early on; Entra auto-generated 4 baseline
+  Conditional Access policies to replace it (worth knowing, this
+  is a newer default behavior, not something you configure manually)
