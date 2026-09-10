@@ -1,9 +1,7 @@
 # Cloud & Cybersecurity Home Labs
 
 Hands-on labs built in sandboxed environments to develop and demonstrate
-practical skills alongside certification study (CompTIA Security+, Microsoft
-Azure Administrator AZ-104, AWS Cloud Practitioner). Each lab includes a
-writeup of what was built, how it was validated, and any troubleshooting
+practical skills. Each lab includes a writeup of what was built, how it was validated, and any troubleshooting
 along the way.
 
 ## Background
@@ -19,9 +17,11 @@ and build toward SOC Analyst / Cloud Security Engineer roles.
 Entra ID, Conditional Access, Intune, dynamic groups, and Azure
 infrastructure labs supporting the M365/Azure Administrator cert track.
 
-More tracks (cybersecurity fundamentals: Wireshark, pfSense, Wazuh SIEM,
-SafeLine WAF, cloud security) will be added as those labs begin.
+### [Cybersecurity Fundamentals](./cybersecurity-labs/README.md)
+Wazuh SIEM, pfSense, Wireshark, SafeLine WAF, and cloud security labs
+supporting the SOC Analyst / Cloud Security Engineer pivot.
 
 ## Tools & Environments Used
 - Microsoft 365 E3 trial tenant (sandboxed)
 - Entra admin center
+- VirtualBox (Wazuh manager + agent VMs)
